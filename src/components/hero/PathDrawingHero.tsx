@@ -89,7 +89,9 @@ async function measureExactDashLength(svg: SVGSVGElement): Promise<number> {
     if (await covered(mid)) hi = mid;
     else lo = mid + 1;
   }
-  return Math.max(1, lo);
+  // Raster sampling tolerates a few missing pixels. Keep the dash beyond
+  // the estimated contour so its tail cannot flash during the initial gap.
+  return Math.max(1, Math.ceil(lo * 1.25));
 }
 
 function SvgPathDrawing({
@@ -183,6 +185,8 @@ function SvgPathDrawing({
       offset = dashLength - unitsPerMs * drawElapsed;
       if (offset <= 0) {
         el.style.strokeDashoffset = '0';
+        // The finished name must be solid, regardless of raster/font estimates.
+        el.style.strokeDasharray = 'none';
         return;
       }
       el.style.strokeDashoffset = String(offset);

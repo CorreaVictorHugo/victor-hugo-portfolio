@@ -32,17 +32,7 @@ export const projects: Project[] = [
     placeholder: false, tone: 'clay', ...image('fast-cell', 'Fast Cell'),
   },
   {
-    slug: 'bianca-cabral', index: '03', title: 'Bianca Cabral',
-    client: 'Dra. Bianca Cabral', category: 'Landing page · Medicina veterinária', year: '2025',
-    description: 'Uma presença digital voltada à apresentação de atendimento veterinário e às dúvidas de quem procura cuidado para seu pet.',
-    challenge: 'Apresentar a profissional, os serviços e os canais de atendimento de maneira acolhedora e fácil de explorar.',
-    solution: 'Hierarquia de conteúdo com apresentação pessoal, serviços, diferenciais, perguntas frequentes e chamadas de contato.',
-    outcome: 'Uma página que conecta a apresentação da profissional, os serviços veterinários e os caminhos de contato.',
-    url: 'https://bianca-cabral-veterinaria.netlify.app/', repository: 'https://github.com/CorreaVictorHugo/Landing_page_Veterinaria',
-    placeholder: false, tone: 'sage', ...image('bianca-cabral', 'Bianca Cabral'),
-  },
-  {
-    slug: 'bushido', index: '04', title: 'Bushido Jiu-Jitsu',
+    slug: 'bushido', index: '03', title: 'Bushido Jiu-Jitsu',
     client: 'Bushido', category: 'Site institucional · Esporte', year: '2025',
     description: 'Uma experiência editorial para apresentar a identidade, a filosofia e a rotina de uma equipe de jiu-jitsu.',
     challenge: 'Comunicar a equipe como comunidade, dando espaço à sua identidade e aos princípios do treinamento.',
@@ -52,7 +42,7 @@ export const projects: Project[] = [
     placeholder: false, tone: 'clay', ...image('bushido', 'Bushido Jiu-Jitsu'),
   },
   {
-    slug: 'victor-automoveis', index: '05', title: 'Victor Automóveis',
+    slug: 'victor-automoveis', index: '04', title: 'Victor Automóveis',
     client: 'Victor Automóveis', category: 'Landing page · Serviços automotivos', year: '2024',
     description: 'Uma página para apresentar serviços de oficina e conduzir o visitante até a solicitação de atendimento.',
     challenge: 'Organizar serviços, etapas de avaliação e informações de contato em uma apresentação direta.',
@@ -62,7 +52,7 @@ export const projects: Project[] = [
     placeholder: false, tone: 'sage', ...image('victor-automoveis', 'Victor Automóveis'),
   },
   {
-    slug: 'carol-lab-v2', index: '06', title: 'Carol Lab — V2',
+    slug: 'carol-lab-v2', index: '05', title: 'Carol Lab — V2',
     client: 'Carol Lab', category: 'Landing page · Versão V2', year: '2024',
     description: 'Uma segunda versão da apresentação do Carol Lab, centrada em análises veterinárias e informação para a rotina clínica.',
     challenge: 'Dar clareza à oferta de exames e ao fluxo de envio e resultado em uma página comercial.',
@@ -72,7 +62,7 @@ export const projects: Project[] = [
     placeholder: false, tone: 'clay', ...image('carol-lab-v2', 'Carol Lab — V2'),
   },
   {
-    slug: 'carol-lab-v1', index: '07', title: 'Carol Lab — Caroline',
+    slug: 'carol-lab-v1', index: '06', title: 'Carol Lab — Caroline',
     client: 'Carol Lab', category: 'Landing page · Versão Caroline', year: '2023',
     description: 'Uma proposta de apresentação para o Carol Lab, com foco em exames e diagnóstico veterinário.',
     challenge: 'Estruturar a presença digital do laboratório com informação institucional, oferta de exames e canais de atendimento.',
