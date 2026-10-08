@@ -1,0 +1,1 @@
+Leia o README.md e todos os documentos da pasta /docs. Siga a ordem de leitura definida no README. Antes de escrever código, apresente seu entendimento do projeto, a arquitetura proposta, a stack, as dependências e o plano de implementação. Não inicie a implementação até concluir essa análise.

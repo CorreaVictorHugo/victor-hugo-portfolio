@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Reveal Mais Presente</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #f1f5f9;
+      color: #334155;
+      overflow-x: hidden;
+    }
+
+    /* Secção inicial apenas para obrigar a fazer scroll */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+
+    /* Container dos elementos que vão surgir */
+    .content-section {
+      max-width: 900px;
+      margin: 100px auto;
+      padding: 0 20px;
+      display: grid;
+      gap: 40px;
+    }
+
+    /* ESTADO INICIAL (Escondido, mais abaixo e mais pequeno) */
+    .reveal-card {
+      background: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+      
+      opacity: 0;
+      /* Começa 100px para baixo e com 85% do tamanho */
+      transform: translateY(100px) scale(0.85); 
+      
+      /* Transição mais longa (1.2s) com efeito de mola (cubic-bezier) */
+      transition: opacity 1.2s ease, transform 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* ESTADO FINAL (Visível na posição original) */
+    .reveal-card.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* Estilos internos dos cartões */
+    .reveal-card h2 {
+      color: #0ea5e9;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+    }
+
+    .reveal-card p {
+      line-height: 1.6;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <h1>Scroll Reveal Dramático</h1>
+    <p>Rola a página para baixo para veres os elementos a saltarem para o ecrã.</p>
+  </header>
+
+  <section class="content-section">
+    <div class="reveal-card">
+      <h2>Mais Distância</h2>
+      <p>Este cartão teve de percorrer 100px para cima. Como o espaço percorrido é maior, o olho humano capta o movimento de forma muito mais imediata do que numa animação subtil.</p>
+    </div>
+
+    <div class="reveal-card">
+      <h2>Efeito de Escala</h2>
+      <p>Além de subir, o cartão cresceu de 85% para 100%. Isto cria a ilusão de que o elemento está a mover-se na tua direção (eixo Z), dando uma sensação física de peso.</p>
+    </div>
+
+    <div class="reveal-card">
+      <h2>Animação com Ressalto (Bounce)</h2>
+      <p>A magia está no `cubic-bezier(0.175, 0.885, 0.32, 1.275)`. Em vez de simplesmente parar quando chega ao topo, o elemento passa ligeiramente da marca e volta a assentar, simulando a inércia do mundo real.</p>
+    </div>
+  </section>
+
+  <script>
+    // Seleciona todos os elementos que queremos animar
+    const revealElements = document.querySelectorAll('.reveal-card');
+
+    // Configuração do Observador
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Adiciona a classe que dispara o CSS
+          entry.target.classList.add('is-visible');
+          
+          // Deixa de observar para que a animação não se repita ao subir a página
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      // O elemento só anima quando 30% dele já estiver dentro da janela
+      // Isto evita que a animação dispare quando o elemento ainda está muito escondido lá em baixo
+      threshold: 0.3, 
+      rootMargin: "0px 0px -50px 0px" // Dispara ligeiramente antes de tocar na borda inferior
+    });
+
+    // Inicia a observação para cada cartão
+    revealElements.forEach(el => revealObserver.observe(el));
+  </script>
+
+</body>
+</html>

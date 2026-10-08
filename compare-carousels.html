@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comparação: CardStack vs WorksWheel</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #121212; color: #fff; font-family: system-ui, sans-serif; padding: 40px 20px; }
+    h1 { text-align: center; font-size: 32px; margin-bottom: 16px; }
+    .subtitle { text-align: center; color: #888; margin-bottom: 60px; }
+    section { margin-bottom: 80px; }
+    h2 { font-size: 24px; margin-bottom: 8px; }
+    .label-stack { color: #d61c59; }
+    .label-wheel { color: #1b8798; }
+    .hint { color: #666; font-size: 14px; margin-bottom: 32px; }
+    .demo-container { max-width: 900px; margin: 0 auto; border: 1px solid #333; border-radius: 12px; overflow: hidden; }
+
+    /* ---- CARDSTACK ---- */
+    .cs-stage { position: relative; height: 450px; width: 100%; perspective: 1200px; }
+    .cs-card {
+      position: absolute; bottom: 30px; left: 50%;
+      width: 350px; height: 230px; margin-left: -175px;
+      border-radius: 16px; overflow: hidden;
+      border: 4px solid rgba(255,255,255,0.1);
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      cursor: pointer;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s;
+      transform-style: preserve-3d;
+    }
+    .cs-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-card .cs-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 40px 16px 16px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      font-weight: 600; font-size: 16px;
+    }
+    .cs-dots { display: flex; justify-content: center; gap: 10px; padding: 20px; }
+    .cs-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      border: none; background: rgba(255,255,255,0.3);
+      cursor: pointer; transition: background 0.2s, transform 0.2s;
+    }
+    .cs-dot.active { background: #d61c59; transform: scale(1.4); }
+    .cs-arrows { display: flex; justify-content: center; gap: 12px; padding-bottom: 24px; }
+    .cs-arrow-btn {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid #444; background: #1e1e1e; color: #fff;
+      font-size: 20px; cursor: pointer; transition: all 0.2s;
+    }
+    .cs-arrow-btn:hover { background: #d61c59; border-color: #d61c59; }
+
+    /* ---- WORKSWHEEL ---- */
+    .ww-stage {
+      position: relative; height: 520px; width: 100%;
+      overflow: hidden; user-select: none;
+      cursor: grab;
+    }
+    .ww-stage:active { cursor: grabbing; }
+    .ww-wheel { position: absolute; top: 50%; left: 50%; transform-style: preserve-3d; }
+    .ww-card {
+      position: absolute;
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 18px 40px -18px rgba(0,0,0,0.6);
+      backface-visibility: hidden;
+      display: block; text-decoration: none;
+      transition: box-shadow 0.2s;
+    }
+    .ww-card:hover { box-shadow: 0 18px 40px -8px rgba(214,28,89,0.4); }
+    .ww-card img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+    .ww-index {
+      position: absolute; top: 7.5%; right: 3%;
+      text-align: right; line-height: 1.8; font-size: 13px;
+      color: rgba(255,255,255,0.45); z-index: 200;
+    }
+    .ww-index button {
+      background: none; border: none; color: inherit;
+      font: inherit; cursor: pointer; padding: 0;
+      transition: color 0.2s;
+    }
+    .ww-index button:hover { color: #fff; }
+    .ww-index button.active { color: #fff; font-weight: 600; }
+    .ww-title {
+      position: absolute; top: 50%; left: 8%;
+      transform: translateY(-50%);
+      font-size: clamp(28px, 4vw, 56px); font-weight: 700;
+      letter-spacing: -0.03em; z-index: 200;
+      pointer-events: none; transition: opacity 0.2s;
+      text-shadow: 0 4px 24px rgba(0,0,0,0.6);
+    }
+    .ww-hint {
+      position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+      font-size: 11px; color: rgba(255,255,255,0.3);
+      letter-spacing: 0.1em; text-transform: uppercase; z-index: 200;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Comparação de Carrosséis</h1>
+<p class="subtitle">Clique, arraste, role o mouse — teste os dois e escolha o seu.</p>
+
+<!-- ============================================================ -->
+<section>
+  <h2 class="label-stack">1. CardStack</h2>
+  <p class="hint">Cards em leque 3D · setas · dots · drag · auto-play desligado para teste</p>
+  <div class="demo-container">
+    <div class="cs-stage" id="cs-stage"></div>
+    <div class="cs-arrows">
+      <button class="cs-arrow-btn" id="cs-prev" aria-label="Anterior">←</button>
+      <button class="cs-arrow-btn" id="cs-next" aria-label="Próximo">→</button>
+    </div>
+    <div class="cs-dots" id="cs-dots"></div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section>
+  <h2 class="label-wheel">2. WorksWheel</h2>
+  <p class="hint">Roda 3D · role o mouse · arraste verticalmente · ↑↓ · clique no índice lateral</p>
+  <div class="demo-container">
+    <div class="ww-stage" id="ww-stage" tabindex="0">
+      <div class="ww-wheel" id="ww-wheel"></div>
+      <div class="ww-title" id="ww-title"></div>
+      <ol class="ww-index" id="ww-index"></ol>
+      <div class="ww-hint">Role o mouse · arraste · ↑↓</div>
+    </div>
+  </div>
+</section>
+
+<script>
+const WORKS = [
+  { title: 'Carol Lab V3', image: 'https://picsum.photos/seed/carol/600/400', href: '#' },
+  { title: 'Fast Cell', image: 'https://picsum.photos/seed/fast/600/400', href: '#' },
+  { title: 'Bianca Cabral', image: 'https://picsum.photos/seed/bianca/600/400', href: '#' },
+  { title: 'Bushido', image: 'https://picsum.photos/seed/bushido/600/400', href: '#' },
+  { title: 'Victor Automóveis', image: 'https://picsum.photos/seed/victor/600/400', href: '#' },
+  { title: 'Carol Lab V2', image: 'https://picsum.photos/seed/carolv2/600/400', href: '#' },
+  { title: 'Carol Lab V1', image: 'https://picsum.photos/seed/carolv1/600/400', href: '#' },
+];
+
+/* ============================================================
+ * 1. CARDSTACK
+ * ============================================================ */
+(function CardStackDemo() {
+  const stage = document.getElementById('cs-stage');
+  const dotsEl = document.getElementById('cs-dots');
+  let active = 0;
+  const cards = [];
+
+  WORKS.forEach((w, i) => {
+    const card = document.createElement('div');
+    card.className = 'cs-card';
+    card.innerHTML = `<img src="${w.image}" alt="${w.title}" draggable="false"><div class="cs-caption">${w.title}</div>`;
+    card.addEventListener('click', () => { active = i; render(); });
+    stage.appendChild(card);
+    cards.push(card);
+
+    const dot = document.createElement('button');
+    dot.className = 'cs-dot';
+    dot.addEventListener('click', () => { active = i; render(); });
+    dotsEl.appendChild(dot);
+  });
+
+  document.getElementById('cs-prev').addEventListener('click', () => { active = (active - 1 + WORKS.length) % WORKS.length; render(); });
+  document.getElementById('cs-next').addEventListener('click', () => { active = (active + 1) % WORKS.length; render(); });
+
+  function render() {
+    cards.forEach((card, i) => {
+      const off = i - active;
+      const abs = Math.abs(off);
+      const isActive = off === 0;
+      card.style.zIndex = 100 - abs;
+      card.style.opacity = abs > 4 ? 0 : 1;
+      card.style.transform = `translateX(${off * 130}px) translateY(${abs * 10}px) rotateZ(${off * 14}deg) rotateX(${isActive ? 0 : 15}deg) scale(${isActive ? 1.05 : 0.92})`;
+      card.style.pointerEvents = abs > 4 ? 'none' : 'auto';
+    });
+    dotsEl.querySelectorAll('.cs-dot').forEach((d, i) => d.classList.toggle('active', i === active));
+  }
+  render();
+})();
+
+/* ============================================================
+ * 2. WORKSWHEEL
+ * ============================================================ */
+(function WorksWheelDemo() {
+  const stage = document.getElementById('ww-stage');
+  const wheel = document.getElementById('ww-wheel');
+  const titleEl = document.getElementById('ww-title');
+  const indexEl = document.getElementById('ww-index');
+
+  const CARD_H = 0.38, CARD_RATIO = 1.45, DRUM = 2.22, RING_R = 1.14;
+  const STEP = 40, DRUM_F = 2.22, LENS = 2.7, BOW = 1.82, CULL = 1.6;
+  const WHEEL_UNITS = 900, DRAG_UNITS = 420, EASE = 0.12, SETTLE = 140;
+
+  const count = WORKS.length;
+  const last = count - 1;
+  let turn = 0, target = 0, active = 0, dragY = null, settleTimer = 0;
+  let stageW = 0, stageH = 0;
+
+  const cards = [];
+  WORKS.forEach((w, i) => {
+    const a = document.createElement('a');
+    a.href = w.href || '#';
+    a.className = 'ww-card';
+    a.innerHTML = `<img src="${w.image}" alt="${w.title}" draggable="false">`;
+    a.addEventListener('click', e => { if (Math.abs(target - active) > 0.1) e.preventDefault(); });
+    wheel.appendChild(a);
+    cards.push(a);
+
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.textContent = w.title;
+    btn.addEventListener('click', () => { target = i + 1; });
+    li.appendChild(btn);
+    indexEl.appendChild(li);
+  });
+
+  function resize() {
+    stageW = stage.clientWidth;
+    stageH = stage.clientHeight;
+    stage.style.perspective = (stageH * CARD_H * CARD_RATIO / CARD_RATIO * DRUM_F * LENS) + 'px';
+  }
+  resize();
+  new ResizeObserver(resize).observe(stage);
+
+  function metrics() {
+    const cardW = Math.min(stageH * CARD_H * CARD_RATIO, stageW * 0.34);
+    const cardH = cardW / CARD_RATIO;
+    return { cardW, cardH, drumR: cardH * DRUM_F, ringR: cardH * RING_R };
+  }
+
+  function to(n) { target = Math.max(0, Math.min(last + 1, n)); }
+
+  function draw() {
+    requestAnimationFrame(draw);
+    const gap = target - turn;
+    if (Math.abs(gap) < 0.0005) turn = target;
+    else turn += gap * EASE;
+
+    const m = Math.max(0, Math.min(1, turn));
+    const pos = Math.max(0, turn - 1);
+    const { cardW, cardH, drumR, ringR } = metrics();
+    const bowF = cardH * BOW;
+
+    wheel.style.transform = `translateZ(${-m * drumR}px)`;
+
+    cards.forEach((card, i) => {
+      const d = i - pos;
+      const drumDeg = d * STEP;
+      const bowX = -bowF * (1 - Math.cos(drumDeg * Math.PI / 180));
+      card.style.width = cardW + 'px';
+      card.style.height = cardH + 'px';
+      card.style.marginLeft = (-cardW / 2) + 'px';
+      card.style.marginTop = (-cardH / 2) + 'px';
+      card.style.transform =
+        `translateX(${m * bowX}px)` +
+        ` rotateZ(${(1 - m) * d * (360 / count)}deg) translateY(${-(1 - m) * ringR}px)` +
+        ` rotateX(${m * drumDeg}deg) translateZ(${m * drumR}px)`;
+      card.style.opacity = m > 0.5 && Math.abs(d) > CULL ? '0' : '1';
+      card.style.zIndex = String(Math.round(100 - Math.abs(d) * 2));
+    });
+
+    const near = Math.max(0, Math.min(last, Math.round(pos)));
+    if (near !== active) {
+      active = near;
+      titleEl.textContent = WORKS[active].title;
+      indexEl.querySelectorAll('button').forEach((b, i) => b.classList.toggle('active', i === active));
+    }
+    titleEl.style.opacity = String(m);
+  }
+  requestAnimationFrame(draw);
+
+  stage.addEventListener('wheel', e => {
+    const next = target + e.deltaY / WHEEL_UNITS;
+    if (next > 0 && next < last + 1) e.preventDefault();
+    to(next);
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(() => to(Math.round(target)), SETTLE);
+  }, { passive: false });
+
+  stage.addEventListener('pointerdown', e => {
+    dragY = e.clientY;
+    stage.setPointerCapture(e.pointerId);
+  });
+  stage.addEventListener('pointermove', e => {
+    if (dragY === null) return;
+    to(target + (dragY - e.clientY) / DRAG_UNITS);
+    dragY = e.clientY;
+  });
+  stage.addEventListener('pointerup', () => {
+    dragY = null;
+    if (target > 1) to(Math.round(target));
+  });
+  stage.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') { to(Math.round(target) + 1); e.preventDefault(); }
+    if (e.key === 'ArrowUp') { to(Math.round(target) - 1); e.preventDefault(); }
+  });
+})();
+</script>
+
+</body>
+</html>

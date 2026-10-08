@@ -1,0 +1,227 @@
+.ww-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.ww-stage {
+  position: relative;
+  height: clamp(560px, 76vh, 860px);
+  width: 100%;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-x;
+  outline: none;
+}
+.ww-stage:active {
+  cursor: grabbing;
+}
+.ww-stage:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.ww-wheel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+}
+
+.ww-card {
+  position: absolute;
+  display: block;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  text-decoration: none;
+  color: inherit;
+  will-change: transform;
+}
+.ww-card:focus-visible {
+  z-index: 300;
+}
+.ww-card:focus-visible .ww-card__face {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.ww-card__face {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-surface);
+  box-shadow: 0 22px 44px -20px rgb(0 0 0 / 0.75);
+  transition: box-shadow 0.3s ease;
+}
+.ww-card:hover .ww-card__face {
+  box-shadow: 0 22px 48px -14px rgb(214 28 89 / 0.45);
+}
+
+.ww-card__face img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+.ww-card__action {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgb(18 18 18 / 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--color-text);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+.ww-card:hover .ww-card__action {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ring label (center) and front-card title trade places across the transition */
+.ww-ring-label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  pointer-events: none;
+  z-index: 50;
+  padding: 0 16px;
+}
+
+.ww-front-title {
+  position: absolute;
+  top: 50%;
+  left: 6%;
+  transform: translateY(-50%);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 150;
+  max-width: 34%;
+  text-shadow: 0 4px 28px rgb(18 18 18 / 0.8);
+}
+
+/* Index down the right-hand side */
+.ww-index {
+  position: absolute;
+  top: 7.5%;
+  right: 3%;
+  text-align: right;
+  line-height: 1.8;
+  color: rgb(245 245 245 / 0.45);
+  z-index: 200;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ww-index button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.ww-index button:hover {
+  color: var(--color-text);
+}
+.ww-index button.is-active {
+  color: var(--color-text);
+  font-weight: 600;
+}
+.ww-index button:focus-visible {
+  outline: 1px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Mobile navigation (wheel drag yields to page scroll on small screens) */
+.ww-mobile-nav {
+  display: none;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 16px;
+}
+.ww-mobile-nav button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.ww-mobile-nav button:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .ww-stage {
+    height: clamp(440px, 62vh, 580px);
+    touch-action: pan-y;
+  }
+  .ww-index {
+    position: static;
+    text-align: center;
+    font-size: 12px !important;
+    padding-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 14px;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+  }
+  .ww-front-title {
+    left: 50%;
+    top: auto;
+    bottom: 14px;
+    transform: translateX(-50%);
+    max-width: 80%;
+    text-align: center;
+    font-size: 22px !important;
+  }
+  .ww-ring-label {
+    font-size: 28px !important;
+  }
+  .ww-mobile-nav {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ww-card__face,
+  .ww-card__action {
+    transition: none;
+  }
+}
