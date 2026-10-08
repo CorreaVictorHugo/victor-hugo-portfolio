@@ -1,61 +1,97 @@
-# Portfolio Web — Victor Hugo
+# Victor Hugo — Portfólio
 
-Pacote de especificação para implementação com Codex.
+Portfólio pessoal de **web design e desenvolvimento**. Site de apresentação com hero animado, roda 3D de projetos e transições cinematográficas entre páginas.
 
-## Objetivo
+**🌐 Online:** https://victor-hugo-portfolio-mocha.vercel.app
 
-Construir um portfólio comercial de web design/desenvolvimento para apresentar trabalhos feitos para clientes.
+---
 
-A principal referência de experiência e motion é:
+## Capturas
 
-https://ewan-kerboas.fr/
+### Home
+![Home — hero com path drawing e roda de projetos](media/home-desktop.webp)
 
-A referência NÃO deve ser clonada. Ela deve orientar ritmo, composição, transições, navegação por projetos e sensação de continuidade. O resultado precisa ter identidade própria.
+### Projetos (Works Wheel)
+![Roda 3D de projetos com anel e tambor](media/projects-wheel.webp)
 
-## Ordem de leitura
+### Case do projeto
+![Página de case com capa, contexto e galeria](media/case-page.webp)
 
-1. `docs/00_PROJECT_CONTEXT.md`
-2. `docs/01_REFERENCE_ANALYSIS.md`
-3. `docs/02_DESIGN_SYSTEM.md`
-4. `docs/03_APP_FLOW.md`
-5. `docs/04_MOTION_SYSTEM.md`
-6. `docs/05_PORTFOLIO_SPEC.md`
-7. `docs/06_IMPLEMENTATION_PLAN.md`
+### Mobile
+![Versão mobile](media/home-mobile.webp)
 
-## Instrução inicial para o Codex
+---
 
-Leia integralmente todos os arquivos da pasta `docs/` antes de implementar.
+## Destaques
 
-Trate `00_PROJECT_CONTEXT.md` e `05_PORTFOLIO_SPEC.md` como requisitos de produto, `02_DESIGN_SYSTEM.md` como fonte de verdade visual e `04_MOTION_SYSTEM.md` como fonte de verdade para animações.
+- **Hero com path drawing** — o nome é desenhado traço a traço em SVG (loop de 2s, para no nome completo)
+- **Works Wheel** — carrossel 3D único: os projetos começam em anel ao redor do título e abrem em tambor vertical no scroll/drag
+- **View Transitions** — a imagem do projeto conecta a imagem do case ao navegar
+- **Seção de serviços** — cards que expandem explicação no hover
+- **Random letter swap** — efeito de letras embaralhando na navegação
+- **Contato cinematográfico** — marquee, glow magnético e pills de contato
+- **Acessibilidade** — `prefers-reduced-motion`, navegação por teclado, skip link, foco visível
 
-Não copie código, textos, imagens, identidade visual ou assets do site de referência.
+## Stack
 
-Antes de implementar, apresente:
-- resumo do entendimento;
-- arquitetura proposta;
-- dependências necessárias;
-- estrutura de pastas;
-- etapas de implementação.
+| Camada | Tecnologia |
+|--------|-----------|
+| Framework | React 19 + TypeScript |
+| Build | Vite |
+| Roteamento | React Router 7 |
+| Animação | GSAP (scroll), rAF puro (wheel), View Transitions API |
+| Estilo | CSS puro com design tokens (variáveis CSS) |
+| Hospedagem | Vercel (deploy automático a cada `git push`) |
 
-Depois implemente por fases, validando responsividade, acessibilidade e performance.
+## Rodando localmente
 
-## Executar a implementação local
-
-```sh
+```bash
 npm install
-npm run dev
+npm run dev        # http://localhost:5173
 ```
 
 Outros comandos:
 
-- `npm run build`: verificação TypeScript e build de produção.
-- `npm run lint`: análise estática.
-- `npm run test:e2e`: testes locais de navegação e responsividade com Chromium.
-  Instale o navegador com `npx playwright install chromium` se necessário.
+```bash
+npm run build      # TypeScript + build de produção
+npm run lint       # ESLint
+```
 
-Os projetos e contatos ficam em `src/content`. As páginas web selecionadas
-estão incluídas com screenshots locais; aplicações serão adicionadas depois.
-Anos, contexto comercial e contatos permanecem TODO até confirmação.
+## Estrutura
 
-Decisões técnicas: `docs/07_TECHNICAL_DECISIONS.md`.
-Resultados de validação e pendências: `docs/08_VALIDATION.md`.
+```
+src/
+├── components/
+│   ├── hero/          # Hero com path drawing animado
+│   ├── layout/        # Header, footer, contato cinematográfico
+│   ├── projects/      # Works Wheel (roda 3D) e visuais de projeto
+│   ├── services/      # Cards de serviços com expand no hover
+│   └── ui/            # RandomLetterSwap (efeito nas nav links)
+├── content/
+│   ├── projects.ts    # ← lista de projetos (adicionar/remover)
+│   └── site.ts        # ← contatos, serviços, textos
+├── pages/             # Home, ProjectCase, NotFound
+├── motion/            # Hooks GSAP, view transitions, reduced motion
+└── styles/global.css  # Design tokens e estilos globais
+public/images/projects/  # Screenshots dos projetos (webp)
+```
+
+## Editar o site
+
+Guia completo em **[COMO_EDITAR.md](COMO_EDITAR.md)** — contatos, novos projetos, textos e como publicar.
+
+Resumo:
+
+1. Edite `src/content/site.ts` (contatos) ou `src/content/projects.ts` (projetos)
+2. Teste: `npm run dev`
+3. Publique:
+
+```bash
+git add .
+git commit -m "descreva a mudança"
+git push    # deploy automático na Vercel
+```
+
+## Licença
+
+Projeto pessoal. Todos os projetos exibidos são de autoria própria ou de clientes, com imagens locais.
