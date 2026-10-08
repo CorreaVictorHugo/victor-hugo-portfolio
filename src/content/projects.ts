@@ -10,6 +10,37 @@ const image = (slug: string, title: string) => ({
 
 // Seleção autorizada: páginas web. Aplicações serão adicionadas posteriormente.
 // Textos baseados nos repositórios, sem atribuir resultados comerciais.
+//
+// =====================================================================
+// 📌 PARA ADICIONAR UM NOVO PROJETO:
+// 1. Copie o bloco de exemplo abaixo e cole antes do colchete final (])
+// 2. Preencha os campos e ajuste o `index` (posição: 01, 02, 03...)
+// 3. Crie a pasta public/images/projects/SEU-SLUG/ com:
+//      cover.webp (1440×960), cover-720.webp (720×480), detail.webp (1440×960)
+// 4. Salve, teste com `npm run dev` e depois:
+//      git add . && git commit -m "novo projeto" && git push  (deploy automático)
+//
+// BLOCO DE EXEMPLEO (descomente e edite):
+//
+//   {
+//     slug: 'meu-projeto',                      // URL: /projects/meu-projeto (sem acento/espaço)
+//     index: '07',                               // posição na lista
+//     title: 'Nome do Projeto',                  // título no site
+//     client: 'Nome do Cliente',                 // cliente (ou seu nome)
+//     category: 'Landing page · Categoria',      // tipo — aparece no card
+//     year: '2026',                              // ano
+//     description: 'Resumo do projeto...',       // título da seção CONTEXTO
+//     challenge: 'O desafio era...',             // seção "O desafio"
+//     solution: 'A solução foi...',              // seção "A solução"
+//     outcome: 'O resultado...',                 // seção "ENTREGA"
+//     url: 'https://meu-projeto.vercel.app',     // botão "Visitar o site" (opcional)
+//     repository: 'https://github.com/USER/repo',// botão "Ver repositório" (opcional)
+//     placeholder: false,                        // false = usa imagens reais
+//     tone: 'sage',                              // cor de fallback: 'sage' (roxo) ou 'clay' (amarelo)
+//     ...image('meu-projeto', 'Nome do Projeto'), // ← slug igual ao de cima
+//   },
+//
+// =====================================================================
 export const projects: Project[] = [
   {
     slug: 'carol-lab-v3', index: '01', title: 'Carol Lab — V3',
