@@ -278,13 +278,15 @@ export function WorksWheel({
             </Link>
           ))}
         </div>
-      </div>
 
-      <div ref={labelRef} className="ww-ring-label" style={{ fontSize: metrics.title }} aria-hidden="true">
-        {label}
-      </div>
-      <div ref={titleRef} className="ww-front-title" style={{ fontSize: metrics.title }} aria-hidden="true">
-        {items[active]?.title}
+        {/* Overlays live inside the stage so their absolute position never
+            lands on the index or the arrow buttons below it on mobile. */}
+        <div ref={labelRef} className="ww-ring-label" style={{ fontSize: metrics.title }} aria-hidden="true">
+          {label}
+        </div>
+        <div ref={titleRef} className="ww-front-title" style={{ fontSize: metrics.title }} aria-hidden="true">
+          {items[active]?.title}
+        </div>
       </div>
 
       <ol className="ww-index" style={{ fontSize: metrics.index }} aria-label="Índice de projetos">
