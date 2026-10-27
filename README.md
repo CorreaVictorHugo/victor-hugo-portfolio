@@ -95,7 +95,7 @@ docs/            Guia de manutenção e publicação
 - **Projetos e estudos de caso:** `src/content/projects.ts`.
 - **Imagens:** `public/images/projects/`.
 
-Consulte o [guia de manutenção](docs/MANUTENCAO.md) para incluir projetos, configurar contatos e publicar. GitHub e LinkedIn estão configurados; os demais canais são opcionais e devem ser preenchidos apenas com dados confirmados.
+Consulte o [guia de manutenção](docs/MANUTENCAO.md) para incluir projetos, configurar contatos e publicar. E-mail, GitHub e LinkedIn estão configurados. O canal preferencial é [correavhc@gmail.com](mailto:correavhc@gmail.com); WhatsApp permanece desativado.
 
 ## Autoria e direitos de uso
 

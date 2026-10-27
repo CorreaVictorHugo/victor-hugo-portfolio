@@ -11,7 +11,7 @@ export const site = {
   instagram: '',
 
   // Contatos opcionais: preencher somente com canais confirmados.
-  email: '',
+  email: 'correavhc@gmail.com',
   whatsapp: '',
   domain: '',
 
