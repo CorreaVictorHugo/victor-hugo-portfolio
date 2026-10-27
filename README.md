@@ -1,97 +1,104 @@
 # Victor Hugo — Portfólio
 
-Portfólio pessoal de **web design e desenvolvimento**. Site de apresentação com hero animado, roda 3D de projetos e transições cinematográficas entre páginas.
+Portfólio de **web design e desenvolvimento**, criado por Victor Hugo Corrêa para apresentar projetos, serviços e formas de contato profissional.
 
-**🌐 Online:** https://victor-hugo-portfolio-mocha.vercel.app
+**[Visitar portfólio](https://victor-hugo-portfolio-mocha.vercel.app/)** · **[LinkedIn](https://www.linkedin.com/in/victor-hn-correa)** · **[GitHub](https://github.com/CorreaVictorHugo)**
 
----
+![Página inicial do portfólio em computador](media/home-desktop.webp)
+
+## Sobre o projeto
+
+A interface apresenta uma seleção de trabalhos, com páginas individuais para explicar contexto, desafio, solução e entrega. O visual combina tipografia editorial, animação do nome em SVG e uma roda interativa de projetos em 3D.
+
+- Página inicial com projetos, apresentação, serviços, processo e contato.
+- Navegação entre a seleção de projetos e seus estudos de caso.
+- Animações com GSAP e transições entre páginas quando suportadas pelo navegador.
+- Layout para computador e celular, com preferência de redução de movimento.
+- Conteúdo de projetos e contatos centralizado em arquivos TypeScript.
+
+Os estudos de caso descrevem o escopo das entregas; não atribuem métricas comerciais não verificadas aos projetos.
 
 ## Capturas
 
-### Home
-![Home — hero com path drawing e roda de projetos](media/home-desktop.webp)
+<details>
+<summary>Ver projetos, estudo de caso e versão móvel</summary>
 
-### Projetos (Works Wheel)
-![Roda 3D de projetos com anel e tambor](media/projects-wheel.webp)
+### Seleção de projetos
 
-### Case do projeto
-![Página de case com capa, contexto e galeria](media/case-page.webp)
+![Roda interativa de projetos](media/projects-wheel.webp)
 
-### Mobile
-![Versão mobile](media/home-mobile.webp)
+### Estudo de caso
 
----
+![Página individual de projeto](media/case-page.webp)
 
-## Destaques
+### Celular
 
-- **Hero com path drawing** — o nome é desenhado traço a traço em SVG (loop de 2s, para no nome completo)
-- **Works Wheel** — carrossel 3D único: os projetos começam em anel ao redor do título e abrem em tambor vertical no scroll/drag
-- **View Transitions** — a imagem do projeto conecta a imagem do case ao navegar
-- **Seção de serviços** — cards que expandem explicação no hover
-- **Random letter swap** — efeito de letras embaralhando na navegação
-- **Contato cinematográfico** — marquee, glow magnético e pills de contato
-- **Acessibilidade** — `prefers-reduced-motion`, navegação por teclado, skip link, foco visível
+![Página inicial no celular](media/home-mobile.webp)
 
-## Stack
+</details>
 
-| Camada | Tecnologia |
-|--------|-----------|
-| Framework | React 19 + TypeScript |
-| Build | Vite |
-| Roteamento | React Router 7 |
-| Animação | GSAP (scroll), rAF puro (wheel), View Transitions API |
-| Estilo | CSS puro com design tokens (variáveis CSS) |
-| Hospedagem | Vercel (deploy automático a cada `git push`) |
+## Tecnologias
 
-## Rodando localmente
+| Área | Tecnologia |
+| --- | --- |
+| Interface | React e TypeScript |
+| Desenvolvimento e build | Vite |
+| Rotas | React Router |
+| Animação | GSAP, requestAnimationFrame e View Transitions API |
+| Estilos | CSS com variáveis de design |
+| Imagens | Arquivos locais com capas responsivas em WebP |
+| Hospedagem | Vercel |
+
+As versões exatas das dependências estão registradas em `package-lock.json`.
+
+## Executar localmente
+
+Requer **Node.js 22.12 ou superior** e npm. Node.js 24 foi utilizado na validação do projeto.
 
 ```bash
-npm install
-npm run dev        # http://localhost:5173
+git clone https://github.com/CorreaVictorHugo/victor-hugo-portfolio.git
+cd victor-hugo-portfolio
+npm ci
+npm run dev
 ```
 
-Outros comandos:
+Acesse o endereço indicado pelo Vite no terminal, normalmente `http://localhost:5173`.
 
-```bash
-npm run build      # TypeScript + build de produção
-npm run lint       # ESLint
-```
+| Comando | Finalidade |
+| --- | --- |
+| `npm run dev` | Servidor local de desenvolvimento |
+| `npm run lint` | Análise estática com ESLint |
+| `npm run build` | Conferência de tipos e geração da versão de produção em `dist/` |
+| `npm run preview` | Prévia local do build de produção |
+
+O projeto não exige variáveis de ambiente para executar localmente. Fontes carregadas pelo Google Fonts dependem de conexão com a internet.
 
 ## Estrutura
 
-```
+```text
 src/
-├── components/
-│   ├── hero/          # Hero com path drawing animado
-│   ├── layout/        # Header, footer, contato cinematográfico
-│   ├── projects/      # Works Wheel (roda 3D) e visuais de projeto
-│   ├── services/      # Cards de serviços com expand no hover
-│   └── ui/            # RandomLetterSwap (efeito nas nav links)
-├── content/
-│   ├── projects.ts    # ← lista de projetos (adicionar/remover)
-│   └── site.ts        # ← contatos, serviços, textos
-├── pages/             # Home, ProjectCase, NotFound
-├── motion/            # Hooks GSAP, view transitions, reduced motion
-└── styles/global.css  # Design tokens e estilos globais
-public/images/projects/  # Screenshots dos projetos (webp)
+  app/           Configuração das rotas
+  components/    Hero, layout, projetos, serviços e elementos de interface
+  content/       Textos, contatos e lista de projetos
+  motion/        Animação, transições e redução de movimento
+  pages/         Página inicial, estudos de caso e página não encontrada
+  styles/        Variáveis de design e estilos globais
+  types/         Tipos dos dados de projeto
+public/          Favicon, imagem de abertura e imagens dos projetos
+media/           Capturas usadas neste README
+docs/            Guia de manutenção e publicação
 ```
 
-## Editar o site
+## Atualizar o conteúdo
 
-Guia completo em **[COMO_EDITAR.md](COMO_EDITAR.md)** — contatos, novos projetos, textos e como publicar.
+- **Contatos e textos:** `src/content/site.ts`.
+- **Projetos e estudos de caso:** `src/content/projects.ts`.
+- **Imagens:** `public/images/projects/`.
 
-Resumo:
+Consulte o [guia de manutenção](docs/MANUTENCAO.md) para incluir projetos, configurar contatos e publicar. GitHub e LinkedIn estão configurados; os demais canais são opcionais e devem ser preenchidos apenas com dados confirmados.
 
-1. Edite `src/content/site.ts` (contatos) ou `src/content/projects.ts` (projetos)
-2. Teste: `npm run dev`
-3. Publique:
+## Autoria e direitos de uso
 
-```bash
-git add .
-git commit -m "descreva a mudança"
-git push    # deploy automático na Vercel
-```
+Desenvolvido por **Victor Hugo Corrêa**. Para conversar sobre um projeto, entre em contato pelo **[LinkedIn](https://www.linkedin.com/in/victor-hn-correa)**.
 
-## Licença
-
-Projeto pessoal. Todos os projetos exibidos são de autoria própria ou de clientes, com imagens locais.
+As marcas, imagens e materiais dos trabalhos apresentados pertencem aos respectivos titulares. Este repositório apresenta o portfólio e não declara licença de software livre nem concede direitos de reutilização sobre os materiais de clientes.

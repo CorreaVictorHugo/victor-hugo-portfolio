@@ -8,3 +8,13 @@ playwright-report/
 .reference/
 artifacts/
 .vercel
+
+# Credenciais e configurações locais
+.env.*
+!.env.example
+.netlify/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.tsbuildinfo

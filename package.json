@@ -12,10 +12,7 @@
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",
     "@fontsource/instrument-serif": "^5.3.0",
-    "embla-carousel-react": "^8.6.0",
-    "framer-motion": "^14.0.0",
     "gsap": "^3.15.0",
-    "lucide-react": "^1.53.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-router-dom": "^7.18.4"
@@ -28,9 +25,12 @@
     "eslint": "^10.12.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.13.0",
-    "sharp": "^0.35.5",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.71.1",
     "vite": "^8.3.3"
+  },
+  "description": "Portfólio de web design e desenvolvimento de Victor Hugo Corrêa.",
+  "engines": {
+    "node": ">=22.12.0"
   }
 }
